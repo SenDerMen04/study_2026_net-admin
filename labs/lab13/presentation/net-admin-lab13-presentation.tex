@@ -1,0 +1,466 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  % \usepackage[%
+  %   % math,
+  %   RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}
+  % ]{plex-otf}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+
+%%% Load theme
+% https://deic.uab.cat/~iblanes/beamer_gallery/
+\IfFileExists{beamerthemegotham.sty}{
+  %% Full TeXlive
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  %% TinyTeX
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Лабораторная работа №13},
+  pdfauthor={Ко Антон Геннадьевич},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Лабораторная работа №13}
+\subtitle{Статическая маршрутизация в Интернете. Планирование}
+\author{Ко Антон Геннадьевич}
+\date{2026-05-09}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Содержание}
+\begin{frame}[allowframebreaks]
+  \frametitle{Содержание}
+  \setcounter{tocdepth}{1}
+  \tableofcontents
+\end{frame}
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+
+\section{Информация}\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+
+\begin{frame}{Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.7\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Ко Антон Геннадьевич
+\item
+  студент
+\item
+  Российский университет дружбы народов им. П. Лумумбы
+\item
+  \href{mailto:1132221551@rudn.ru}{\nolinkurl{1132221551@rudn.ru}}
+\item
+  \url{https://SenDerMen04.github.io/ru/}
+\end{itemize}
+\end{column}
+
+\begin{column}{0.3\linewidth}
+\pandocbounded{\includegraphics[keepaspectratio]{./image/me.jpg}}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Цель работы}
+\phantomsection\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+Провести подготовительные мероприятия по организации взаимодействия
+через сеть провайдера посредством статической маршрутизации локальной
+сети с сетью основного здания, расположенного в 42-м квартале в Москве,
+и сетью филиала, расположенного в г. Сочи.
+\end{frame}
+
+\begin{frame}{Выполнение работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux440ux430ux431ux43eux442ux44b}
+На схеме нашего проекта разместим необходимое оборудование: 4
+медиаконвертера (Repeater-PT), 2 маршрутизатора типа Cisco 2811, 1
+маршрутизирующий коммутатор типа Cisco 3560-24PS, 2 коммутатора типа
+Cisco 2950-24, коммутатор Cisco 2950-24T, 3 оконечных устройства типа
+PC-PT. А также присвоим им названия и проведём соединение объектов
+согласно скорректированной нами схеме (рис. \#fig:007):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{Размещение необходимого оборудования, присвоение названий и
+соединение объектов}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]
+На медиаконвертерах заменим имеющиеся модули на
+\texttt{PT-REPEATERNM-1FFE} и \texttt{PT-REPEATER-NM-1CFE} для
+подключения витой пары по технологии Fast Ethernet и оптоволокна
+соответственно (рис. \#fig:008):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{Замена модулей на медиаконвертерах}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]
+Далее на маршрутизаторе \texttt{msk-q42-agko-gw-1} добавим
+дополнительный интерфейс NM-2FE2W (рис. \#fig:009):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/9.png}
+
+}
+
+\caption{Добавление на маршрутизаторе msk-q42-agko-gw-1 дополнительного
+интерфейса NM-2FE2W}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+В физической рабочей области Packet Tracer добавим в г. Москва здание
+42-го квартала и присвоим ему название (рис. \#fig:010):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/10.png}
+
+}
+
+\caption{Добавление в физической рабочей области в г. Москва здания
+42-го квартала}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+Затем в физической рабочей области добавим город Сочи и в нём здание
+филиала, присвоим ему соответствующее название (рис. \#fig:011):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/11.png}
+
+}
+
+\caption{Добавление города Сочи и здания филиала}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+После чего нужно перенести из сети «Донская» оборудование сети 42-го
+квартала и сети филиала в соответствующие здания и выполнить расстановку
+(рис. \#fig:012 -- \#fig:014):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/12.png}
+
+}
+
+\caption{Перенос оборудования сети 42-го квартала и сети филиала в
+соответствующие здания}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/13.png}
+
+}
+
+\caption{Размещение объектов в основном здании 42-го квартала в Москве}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/14.png}
+
+}
+
+\caption{Размещение объектов в здании филиала в г. Сочи}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+На последнем шаге выполним первоначальную настройку оборудования (рис.
+\#fig:015 -- \#fig:020):
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/15.png}
+
+}
+
+\caption{Первоначальная настройка маршрутизатора msk-q42-agko-gw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/16.png}
+
+}
+
+\caption{Первоначальная настройка коммутатора msk-q42-agko-sw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/17.png}
+
+}
+
+\caption{Первоначальная настройка маршрутизирующего коммутатора
+msk-hostel-agko-gw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/18.png}
+
+}
+
+\caption{Первоначальная настройка коммутатора msk-hostel-sw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/19.png}
+
+}
+
+\caption{Первоначальная настройка коммутатора sch-sochi-agko-sw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{image/20.png}
+
+}
+
+\caption{Первоначальная настройка маршрутизатора sch-sochi-agko-gw-1}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}{Вывод}
+\phantomsection\label{ux432ux44bux432ux43eux434}
+В ходе выполнения лабораторной работы мы провели подготовительные
+мероприятия по организации взаимодействия через сеть провайдера
+посредством статической маршрутизации локальной сети с сетью основного
+здания, расположенного в 42-м квартале в Москве, и сетью филиала,
+расположенного в г. Сочи.
+\end{frame}
+
+
+
+
+\end{document}
